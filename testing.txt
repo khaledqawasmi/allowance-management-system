@@ -1,0 +1,247 @@
+Testing
+
+Testing Approach
+
+The system was tested using Postman to verify the REST API endpoints, input validation, business logic, and database persistence. Both valid and invalid inputs were tested.
+
+
+1. Allowance Testing
+
+Test Case 1 – Create Daily Allowance
+
+Endpoint: POST /allowance
+
+Input: Valid allowance amount with Daily period.
+
+Expected Result: The allowance is created successfully with 1 day.
+
+Status Code: 201 Created
+
+Result: Passed
+
+
+Test Case 2 – Create Weekly Allowance
+
+Endpoint: POST /allowance
+
+Input: Valid allowance amount with Weekly period.
+
+Expected Result: The allowance is created successfully with 7 days.
+
+Status Code: 201 Created
+
+Result: Passed
+
+Test Case 3 – Create Monthly Allowance
+
+Endpoint: POST /allowance
+
+Input: Valid allowance amount with Monthly period using February 2026.
+
+Expected Result: The allowance is created successfully with the correct number of days.
+
+Status Code: 201 Created
+
+Result: Passed
+
+
+Test Case 4 – Create Yearly Allowance
+
+Endpoint: POST /allowance
+
+Input: Valid allowance amount with Yearly period using 2028.
+
+Expected Result: The allowance is created successfully with the correct number of days.
+
+Status Code: 201 Created
+
+Result: Passed
+
+
+Test Case 5 – Create Custom Allowance
+
+Endpoint: POST /allowance
+
+Input: Valid allowance amount with Custom period and a valid number of days.
+
+Expected Result: The allowance is created successfully.
+
+Status Code: 201 Created
+
+Result: Passed
+
+
+2. Spending Testing
+
+Test Case 6 – Record Valid Spending
+
+Endpoint: POST /spending
+
+Input: Valid allowance ID and spending amount within the remaining balance.
+
+Expected Result: The spending is recorded and the remaining balance, remaining days, and remaining daily budget are updated.
+
+Status Code: 200 OK
+
+Result: Passed
+
+Verified Response:
+
+{
+    "allowance_id": 1,
+    "message": "Spending recorded successfully.",
+    "remaining_balance": 198.0,
+    "remaining_daily_budget": 6.83,
+    "remaining_days": 29,
+    "spending_amount": 2.0
+}
+
+
+Test Case 7 – Spending Exceeds Remaining Balance
+
+Endpoint: POST /spending
+
+Input: Spending amount greater than the remaining balance.
+
+Expected Response:
+
+{
+    "error": "Spending exceeds remaining balance."
+}
+
+Status Code: 400 Bad Request
+
+Result: Passed
+
+
+Test Case 8 – Negative Spending
+
+Endpoint: POST /spending
+
+Input: Negative spending amount.
+
+Expected Response:
+
+{
+    "error": "Spending amount cannot be negative."
+}
+
+Status Code: 400 Bad Request
+
+Result: Passed
+
+3. Place Testing
+
+Test Case 9 – Add Valid Place
+
+Endpoint: POST /places
+
+Input: Place name “McDonald’s” with an expected cost of 5.
+
+Expected Result: The place is saved successfully.
+
+Status Code: 201 Created
+
+Result: Passed
+
+Test Case 10 – Negative Place Cost
+
+Endpoint: POST /places
+
+Input: Place name “McDonald’s” with an expected cost of -5.
+
+Expected Response:
+
+{
+    "error": "Expected cost cannot be negative."
+}
+
+Status Code: 400 Bad Request
+
+Result: Passed
+
+
+Test Case 11 – Get Saved Places
+
+Endpoint: GET /places
+
+Input: No input required.
+
+Expected Result: Saved places are returned successfully.
+
+Status Code: 200 OK
+
+Result: Passed
+
+
+4. Suggestion Testing
+
+Test Case 12 – Suitable Place Suggestions
+
+Endpoint: GET /suggestions?budget=...
+
+Input: A valid budget with saved places whose expected costs are within the budget.
+
+Expected Result: Suitable places are returned successfully.
+
+Status Code: 200 OK
+
+Result: Passed
+
+
+
+Test Case 13 – No Suitable Places
+
+Endpoint: GET /suggestions?budget=...
+
+Input: A valid budget with saved places whose expected costs are higher than the budget.
+
+Expected Result:
+
+{
+    "message": "No suitable places were found.",
+    "suggestions": []
+}
+
+Status Code: 200 OK
+
+Result: Passed
+
+
+
+5. Database Testing
+
+Test Case 14 – Allowance Data Persistence
+
+Expected Result: Allowance data is stored correctly in PostgreSQL.
+
+Result: Passed
+
+
+Test Case 15 – Spending Data Persistence
+
+Expected Result: Spending data is stored correctly and linked to the corresponding allowance.
+
+Result: Passed
+
+
+Test Case 16 – Place Data Persistence
+
+Expected Result: Place data is stored correctly in PostgreSQL.
+
+Result: Passed
+
+Test Case 17 – Created At Timestamp
+
+Expected Result: The created_at value is automatically stored when a new record is created.
+
+Result: Passed
+
+Test Case 18 - Swagger API Documentation
+Expected Result: The Swagger API documentation was verified successfully, and all documented endpoints were accessible through Swagger UI.
+Result: Passed
+
+
+Overall Testing Result
+
+All performed test cases passed successfully. The testing confirmed that the main REST API endpoints, input validation, business logic, and database persistence work as expected.

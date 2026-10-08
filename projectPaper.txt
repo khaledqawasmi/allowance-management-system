@@ -1,0 +1,78 @@
+Allowance Management Backend
+
+Problem Statement
+
+The user needs a system to manage allowance during a specific spending period, determine how much they can spend during the period, and know whether the allowance will be enough for the coming period.
+
+Development Process Model
+
+The project uses the Iterative Model.
+
+The system is developed in multiple iterations. The core allowance and spending functionality is implemented first, followed by place management and budget-based suggestions. Each iteration is tested and improved before moving to the next iteration.
+
+Functional Requirements
+
+FR1: The system shall allow the user to select an allowance period.
+
+FR2: The system shall allow the user to enter a valid allowance amount.
+
+FR3: The system shall allow the user to specify a valid number of days for a Custom allowance period.
+
+FR4: The system shall calculate the daily spending budget based on the selected allowance period.
+
+FR5: The system shall allow the user to record a valid spending amount.
+
+FR6: The system shall update the remaining balance and remaining daily budget based on spending.
+
+FR7: The system shall allow the user to add places and specify their typical spending.
+
+FR8: The system shall suggest suitable places based on the available budget.
+
+Non-Functional Requirements
+
+NFR1 - Usability:
+The system should be easy to use and provide clear input and error messages.
+
+NFR2 - Accuracy:
+The system should accurately calculate the daily spending budget, remaining balance, and remaining daily budget.
+
+NFR3 - Performance:
+The system should display the required results within a short time after receiving the required input.
+
+NFR4 - Reliability:
+The system should handle invalid inputs without crashing or stopping the system.
+
+NFR5 - Maintainability:
+The system should be easy to modify and adapt when new features are added.
+
+Constraints
+
+C1: The system is implemented using Python.
+
+C2: PostgreSQL is used for data storage.
+
+C3: The system requires a network connection to communicate with the backend API.
+
+Inputs
+
+* Allowance period
+* Allowance amount
+* Month and year for Monthly allowance periods
+* Year for Yearly allowance periods
+* Number of days for Custom allowance periods
+* Spending amount
+* Allowance ID
+* Place name
+* Expected place cost
+* Available budget for place suggestions
+
+Outputs
+
+* Number of days in the selected allowance period
+* Daily spending budget
+* Remaining balance
+* Remaining days
+* Remaining daily budget
+* Saved places
+* Suitable place suggestions
+* Validation and error messages

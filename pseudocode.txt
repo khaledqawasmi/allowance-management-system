@@ -1,0 +1,122 @@
+Pseudocode
+
+Iteration 1 – Allowance and Spending Management
+
+1. Create Allowance
+
+BEGIN
+    RECEIVE allowance period
+    RECEIVE allowance amount
+    IF allowance amount is invalid THEN
+        RETURN error message
+    END IF
+    IF allowance period is Daily THEN
+        number of days = 1
+    ELSE IF allowance period is Weekly THEN
+        number of days = 7
+    ELSE IF allowance period is Monthly THEN
+        RECEIVE month and year
+        CALCULATE number of days in the selected month
+    ELSE IF allowance period is Yearly THEN
+        RECEIVE year
+        CALCULATE number of days in the selected year
+    ELSE IF allowance period is Custom THEN
+        RECEIVE number of days
+        IF number of days is invalid THEN
+            RETURN error message
+        END IF
+    ELSE
+        RETURN error message
+    END IF
+    daily budget = allowance amount / number of days
+    remaining balance = allowance amount
+    SAVE allowance
+    RETURN allowance information
+END
+
+2. Record Spending
+
+BEGIN
+    RECEIVE allowance ID
+    RECEIVE spending amount
+    FIND allowance using allowance ID
+    IF allowance does not exist THEN
+        RETURN error message
+    END IF
+    IF spending amount is invalid THEN
+        RETURN error message
+    END IF
+    IF spending amount is greater than remaining balance THEN
+        RETURN error message
+    END IF
+    remaining balance = remaining balance - spending amount
+    CALCULATE elapsed days from allowance start date
+    remaining days = allowance period days - elapsed days
+    IF remaining days is greater than 0 THEN
+        remaining daily budget = remaining balance / remaining days
+    ELSE
+        remaining days = 0
+        remaining daily budget = remaining balance
+    END IF
+    SAVE spending
+    UPDATE allowance remaining balance
+    RETURN spending and updated allowance information
+END
+
+⸻
+
+Iteration 2 – Place Management
+
+3. Add Place
+
+BEGIN
+    RECEIVE place name
+    RECEIVE expected cost
+    IF place name is empty THEN
+        RETURN error message
+    END IF
+    IF expected cost is invalid THEN
+        RETURN error message
+    END IF
+    IF expected cost is negative THEN
+        RETURN error message
+    END IF
+    SAVE place
+    RETURN place information
+END
+
+4. Get Places
+
+BEGIN
+    RETRIEVE all saved places
+    RETURN saved places
+END
+
+⸻
+
+Iteration 3 – Place Suggestions
+
+5. Suggest Suitable Places
+
+BEGIN
+    RECEIVE available budget
+    IF available budget is missing THEN
+        RETURN error message
+    END IF
+    IF available budget is invalid THEN
+        RETURN error message
+    END IF
+    IF available budget is negative THEN
+        RETURN error message
+    END IF
+    RETRIEVE saved places
+    FOR each saved place
+        IF expected cost is less than or equal to available budget THEN
+            ADD place to suitable places
+        END IF
+    END FOR
+    IF no suitable places are found THEN
+        RETURN message indicating that no suitable places were found
+    END IF
+    RETURN suitable places
+END
